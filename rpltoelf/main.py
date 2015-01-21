@@ -8,7 +8,13 @@ with open("000012db.app", "rb") as rplstream, open("out.elf", "wb") as outstream
 	rplstream.seek(0)
 	a = RPLFile(rplstream)
 	rplstream = io.BytesIO(rpl)
-	outstream.write(rplstream.read(a.header["e_ehsize"]))
+	headerbytes = bytearray(rplstream.read(a.header["e_ehsize"]))
+	headerbytes[0x7] = 0 # sysV
+	headerbytes[0x8] = 0 # abi v0
+	headerbytes[0x10] = 0
+	headerbytes[0x11] = 3 # dyn
+
+	outstream.write(headerbytes)
 	print(a)
 	print(a.header)
 	b = 0
@@ -32,6 +38,9 @@ with open("000012db.app", "rb") as rplstream, open("out.elf", "wb") as outstream
 		newheader = copy.copy(i.header)
 		newheader["sh_size"] = len(data)
 		newheader["sh_offset"] = crushed_indexes[b] + post_headers
+		newheader["sh_flags"] &= ~0x08000000
+		if newheader["sh_type"] == "SHT_SYMTAB":
+			newheader["sh_info"] = newheader["sh_info"] // newheader["sh_entsize"]
 		outstream.write(a.structs.Elf_Shdr.build(newheader))
 		b = b + 1
 	outstream.write(crushed_data.getvalue())
