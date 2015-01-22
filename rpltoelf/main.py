@@ -52,6 +52,9 @@ def convertdir(indirname):
 		with open(p, "rb") as temp:
 			if temp.read(4) != b"\x7fELF":
 				continue
+			temp.seek(0x7)
+			if temp.read(2) != b"\xca\xfe":
+				continue
 		convertone(p, p + ".elf")
 
 def main():
