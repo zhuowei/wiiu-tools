@@ -34,7 +34,7 @@ def convertone(infilename, outfilename):
 			newheader["sh_offset"] = crushed_indexes[b] + post_headers
 			newheader["sh_flags"] &= ~0x08000000
 			if newheader["sh_type"] == "SHT_SYMTAB":
-				newheader["sh_info"] = newheader["sh_info"] // newheader["sh_entsize"]
+				newheader["sh_info"] = 0# newheader["sh_info"] // newheader["sh_entsize"]
 			outstream.write(a.structs.Elf_Shdr.build(newheader))
 			b = b + 1
 		outstream.write(crushed_data.getvalue())
