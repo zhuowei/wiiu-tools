@@ -10,7 +10,15 @@ sub_fff00900: !!exception_vector_decrementer
 sub_fff00a00: !!exception_vector_unused_a00
 sub_fff00b00: !!exception_vector_unused_b00
 sub_fff00c00: !!exception_vector_syscall
+sub_fff01d60: !!dispatch_syscall
+sub_fff02040: !!syscall_dispatch_table_0
+sub_fff02260: !!syscall_dispatch_OSReadRegister32Ex
+sub_fff02280: !!syscall_dispatch_OSWriteRegister32Ex
+sub_fff02360: !!syscall_dispatch_OSGetSecurityLevel
 sub_fff02648: !!exception_handler_end
+sub_fff0945c: !!some_function_epilogue
+sub_fff05ed4: !!table_entry_0
+sub_fff05f88: !!table_entry_1
 sub_fff067fc: !!settimebase
 sub_fff06860: !!ppc_dcbz
 sub_fff06868: !!ppc_dcbst
@@ -33,3 +41,5 @@ sub_fff07624: !!CompareAndSwapAtomicWith4ofr3
 sub_fff07740: !!OSMemoryBarrier
 sub_fff07774: !!savedbatsandcache
 sub_fff07884: !!something_per_core_info_stores_to_13
+sub_fff1d190: !! some_function_prologue
+sub_fff1d1a4: !!some_function_epilogue_2
