@@ -10,8 +10,29 @@ sub_fff00900: !!exception_vector_decrementer
 sub_fff00a00: !!exception_vector_unused_a00
 sub_fff00b00: !!exception_vector_unused_b00
 sub_fff00c00: !!exception_vector_syscall
+sub_fff0191c: !!syscall_14_part2
+sub_fff01b94: !!syscall_SetFPUContext_part2
+sub_fff01bd8: !!syscall_13_mmcrandpmc
+sub_fff01c24: !!syscall_6_part2
 sub_fff01d60: !!dispatch_syscall
+sub_fff01f00: !!OSWriteRegister32Ex_part2
 sub_fff02040: !!syscall_dispatch_table_0
+sub_fff02060: !!syscall_dispatch_1
+sub_fff02080: !!syscall_dispatch_2
+sub_fff020a0: !!syscall_dispatch_3
+sub_fff020c0: !!syscall_dispatch_4
+sub_fff020e0: !!syscall_dispatch_5
+sub_fff02100: !!syscall_dispatch_6
+sub_fff02120: !!syscall_dispatch_7
+sub_fff02140: !!syscall_dispatch_8
+sub_fff02160: !!syscall_dispatch_GetCurrentFPUContext
+sub_fff02180: !!syscall_dispatch_10
+sub_fff021a0: !!syscall_dispatch_SetCurrentFPUContext
+sub_fff021c0: !!syscall_dispatch_set_gather_pipe
+sub_fff021e0: !!syscall_dispatch_13
+sub_fff02220: !!syscall_dispatch_14
+sub_fff02220: !!syscall_dispatch_15
+sub_fff02260: !!syscall_dispatch_16
 sub_fff02260: !!syscall_dispatch_OSReadRegister32Ex
 sub_fff02280: !!syscall_dispatch_OSWriteRegister32Ex
 sub_fff02360: !!syscall_dispatch_OSGetSecurityLevel
@@ -23,7 +44,7 @@ sub_fff067fc: !!settimebase
 sub_fff06860: !!ppc_dcbz
 sub_fff06868: !!ppc_dcbst
 sub_fff06884: !!InvalidateDataRangeNoSync
-sub_fff068b0: !!StoreDataRange
+sub_fff068b0: !!DCStoreRange
 sub_fff06918: !!FlushDataRange
 sub_fff06954: !!FlushDataRangeNoSync
 sub_fff069e0: !!something_ibats_with_r4
@@ -41,5 +62,6 @@ sub_fff07624: !!CompareAndSwapAtomicWith4ofr3
 sub_fff07740: !!OSMemoryBarrier
 sub_fff07774: !!savedbatsandcache
 sub_fff07884: !!something_per_core_info_stores_to_13
+sub_fff0a160: !!snprintf_impl
 sub_fff1d190: !! some_function_prologue
 sub_fff1d1a4: !!some_function_epilogue_2
