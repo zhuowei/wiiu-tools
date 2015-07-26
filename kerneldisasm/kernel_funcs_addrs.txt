@@ -4,6 +4,7 @@ dat_ffe85070: !!syscall_table_85070
 dat_ffe85470: !!some_function_table_85470
 dat_ffea9ce0: !!syscall_table_a9ce0
 dat_ffeaa0e0: !!syscall_table_aa0e0
+sub_ffee0a60: !!PhysicalToEffectiveUncachedImpl
 sub_fff00000: !!exception_vector_reset
 sub_fff00100: !!exception_vector_soft_reset
 sub_fff00200: !!exception_vector_machine_check
@@ -52,7 +53,10 @@ sub_fff02e94: !!KiSetExExit
 sub_fff02f18: !!somethingSetPExCallback
 sub_fff02f70: !!SomethingDSIException
 sub_fff03074: !!UnhandledProgramException
+sub_fff03320: !!syscall_extended_8_SetUserModeExHandler
 sub_fff0945c: !!some_function_epilogue
+sub_fff058ac: !!perfmon_call_user_callback
+sub_fff05a54: !!set_perfmon_handler
 sub_fff05ed4: !!table_entry_0
 sub_fff05f88: !!table_entry_1
 sub_fff067fc: !!settimebase
@@ -77,7 +81,11 @@ sub_fff07624: !!CompareAndSwapAtomicWith4ofr3
 sub_fff07740: !!OSMemoryBarrier
 sub_fff07774: !!savedbatsandcache
 sub_fff07884: !!something_per_core_info_stores_to_13
+sub_fff0899c: !!syscall_extended_SetInfo_impl
+sub_fff08d68: !!syscall_extended_SetInfo
+sub_fff08e5c: !!strncmp_and_compwi
 sub_fff09c7c: !!something_string_related
+sub_fff09f18: !!strncmp
 sub_fff0a160: !!snprintf_impl
 sub_fff0a9c8: !!vsnprintf
 sub_fff0aa94: !!print_to_kernel_log
@@ -94,12 +102,14 @@ sub_fff0fbbc: !!something_KeRPLLoader_ResumeUserContext
 sub_fff1021c: !!KiRPLLoaderSetup
 sub_fff108c0: !!KiGetProcessArgs
 sub_fff109fc: !!SetCoreToProcessId
+sub_fff10bdc: !!get_pid
 sub_fff11350: !!CloseTitle
 sub_fff1153c: !!FastExit
 sub_fff11d14: !!process_exit
 sub_fff12488: !!allocate_per_core_scheduling_timer
 sub_fff12598: !!KiProcess_FinishInitAndPreload
 sub_fff12754: !!KiProcessLaunch
+sub_fff13588: !!syscall_extended_70_GetTitleVersion
 sub_fff18be8: !!KiLoadAsync
 sub_fff18ea4: !!KiBlockLogInit
 sub_fff1a284: !!KernelEventLog__setLevel
