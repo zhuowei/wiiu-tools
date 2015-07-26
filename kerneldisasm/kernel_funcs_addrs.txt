@@ -1,3 +1,9 @@
+sub_ffe00cfc: !!early_print
+sub_ffe807b4: !!load_kdebug
+dat_ffe85070: !!syscall_table_85070
+dat_ffe85470: !!some_function_table_85470
+dat_ffea9ce0: !!syscall_table_a9ce0
+dat_ffeaa0e0: !!syscall_table_aa0e0
 sub_fff00000: !!exception_vector_reset
 sub_fff00100: !!exception_vector_soft_reset
 sub_fff00200: !!exception_vector_machine_check
@@ -12,6 +18,8 @@ sub_fff00b00: !!exception_vector_unused_b00
 sub_fff00c00: !!exception_vector_syscall
 sub_fff0180c: !!KiInitKernelFinish
 sub_fff01890: !!print_diag
+sub_fff018c0: !!unimplemented_system_call_handler
+sub_fff018d4: !!non_recoverable_system_call_handler
 sub_fff0191c: !!syscall_14_part2
 sub_fff01b94: !!syscall_SetFPUContext_part2
 sub_fff01bd8: !!syscall_13_mmcrandpmc
@@ -39,6 +47,7 @@ sub_fff02260: !!syscall_dispatch_OSReadRegister32Ex
 sub_fff02280: !!syscall_dispatch_OSWriteRegister32Ex
 sub_fff02360: !!syscall_dispatch_OSGetSecurityLevel
 sub_fff02648: !!exception_handler_end
+sub_fff02cc0: !!print_exception_info
 sub_fff02e94: !!KiSetExExit
 sub_fff02f18: !!somethingSetPExCallback
 sub_fff02f70: !!SomethingDSIException
@@ -77,7 +86,11 @@ sub_fff0ab88: !!calls_vsnprintf_2
 sub_fff0ac14: !!set_crash_detail_level
 sub_fff0addc: !!kernel_do_log
 sub_fff0b878: !!Kernel_IPCK_ReadAsync
+sub_fff0c908: !!process_io_api
 sub_fff0ec04: !!panic
+sub_fff0eeb0: !!something_apppanic
+sub_fff0f874: !!calls_something_KeRPLLoader_ResumeUserContext
+sub_fff0fbbc: !!something_KeRPLLoader_ResumeUserContext
 sub_fff1021c: !!KiRPLLoaderSetup
 sub_fff108c0: !!KiGetProcessArgs
 sub_fff109fc: !!SetCoreToProcessId
@@ -88,5 +101,15 @@ sub_fff12488: !!allocate_per_core_scheduling_timer
 sub_fff12598: !!KiProcess_FinishInitAndPreload
 sub_fff12754: !!KiProcessLaunch
 sub_fff18be8: !!KiLoadAsync
+sub_fff18ea4: !!KiBlockLogInit
+sub_fff1a284: !!KernelEventLog__setLevel
+sub_fff1a2e0: !!KernelEventLog__getLevel
+sub_fff1ab94: !!KiLogBuffer
+sub_fff1ad80: !!KiLogRetrieve
+sub_fff1af84: !!callsKiLogBuffer
+sub_fff1afc8: !!callsKeLogBuffer
+sub_fff1b6b8: !!KiLogSetPerformanceNumber
+sub_fff1b738: !!something_stopwatch_index
+sub_fff1b784: !!something_stopwatch_index2
 sub_fff1d190: !! some_function_prologue
 sub_fff1d1a4: !!some_function_epilogue_2
