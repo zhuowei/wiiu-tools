@@ -10,6 +10,8 @@ sub_fff00900: !!exception_vector_decrementer
 sub_fff00a00: !!exception_vector_unused_a00
 sub_fff00b00: !!exception_vector_unused_b00
 sub_fff00c00: !!exception_vector_syscall
+sub_fff0180c: !!KiInitKernelFinish
+sub_fff01890: !!print_diag
 sub_fff0191c: !!syscall_14_part2
 sub_fff01b94: !!syscall_SetFPUContext_part2
 sub_fff01bd8: !!syscall_13_mmcrandpmc
@@ -37,6 +39,10 @@ sub_fff02260: !!syscall_dispatch_OSReadRegister32Ex
 sub_fff02280: !!syscall_dispatch_OSWriteRegister32Ex
 sub_fff02360: !!syscall_dispatch_OSGetSecurityLevel
 sub_fff02648: !!exception_handler_end
+sub_fff02e94: !!KiSetExExit
+sub_fff02f18: !!somethingSetPExCallback
+sub_fff02f70: !!SomethingDSIException
+sub_fff03074: !!UnhandledProgramException
 sub_fff0945c: !!some_function_epilogue
 sub_fff05ed4: !!table_entry_0
 sub_fff05f88: !!table_entry_1
@@ -62,6 +68,25 @@ sub_fff07624: !!CompareAndSwapAtomicWith4ofr3
 sub_fff07740: !!OSMemoryBarrier
 sub_fff07774: !!savedbatsandcache
 sub_fff07884: !!something_per_core_info_stores_to_13
+sub_fff09c7c: !!something_string_related
 sub_fff0a160: !!snprintf_impl
+sub_fff0a9c8: !!vsnprintf
+sub_fff0aa94: !!print_to_kernel_log
+sub_fff0aafc: !!print_to_user_log
+sub_fff0ab88: !!calls_vsnprintf_2
+sub_fff0ac14: !!set_crash_detail_level
+sub_fff0addc: !!kernel_do_log
+sub_fff0b878: !!Kernel_IPCK_ReadAsync
+sub_fff0ec04: !!panic
+sub_fff1021c: !!KiRPLLoaderSetup
+sub_fff108c0: !!KiGetProcessArgs
+sub_fff109fc: !!SetCoreToProcessId
+sub_fff11350: !!CloseTitle
+sub_fff1153c: !!FastExit
+sub_fff11d14: !!process_exit
+sub_fff12488: !!allocate_per_core_scheduling_timer
+sub_fff12598: !!KiProcess_FinishInitAndPreload
+sub_fff12754: !!KiProcessLaunch
+sub_fff18be8: !!KiLoadAsync
 sub_fff1d190: !! some_function_prologue
 sub_fff1d1a4: !!some_function_epilogue_2
