@@ -43,9 +43,9 @@ sub_fff02180: !!syscall_dispatch_10_SetCurrentFPUContext
 sub_fff021a0: !!syscall_dispatch_11
 sub_fff021c0: !!syscall_dispatch_12_set_gather_pipe
 sub_fff021e0: !!syscall_dispatch_13_mmcrandpmc
-sub_fff02220: !!syscall_dispatch_14
+sub_fff02200: !!syscall_dispatch_14
 sub_fff02220: !!syscall_dispatch_15
-sub_fff02260: !!syscall_dispatch_16
+sub_fff02240: !!syscall_dispatch_16
 sub_fff02260: !!syscall_dispatch_17_OSReadRegister32Ex
 sub_fff02280: !!syscall_dispatch_18_OSWriteRegister32Ex
 sub_fff022a0: !!syscall_dispatch_19
