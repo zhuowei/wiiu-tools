@@ -88,7 +88,7 @@ class RPLStructs(object):
                 Enum(self.Elf_byte('EI_VERSION'), **ENUM_E_VERSION),
                 Enum(self.Elf_byte('EI_OSABI'), **ENUM_EI_OSABI),
                 self.Elf_byte('EI_ABIVERSION'),
-                Padding(7)
+                Padding(7, pattern=b"\x00")
             ),
             Enum(self.Elf_half('e_type'), **ENUM_E_TYPE),
             Enum(self.Elf_half('e_machine'), **ENUM_E_MACHINE),

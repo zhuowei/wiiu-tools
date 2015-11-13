@@ -2,8 +2,18 @@ from rplfile import *
 import io
 import copy
 from elftools.elf.elffile import ELFFile
+from elftools.elf.constants import *
+from elftools.construct.lib import Container
 import sys
 import os
+
+def shtopflags(a):
+	b = P_FLAGS.PF_R
+	if a & SH_FLAGS.SHF_WRITE:
+		b |= P_FLAGS.PF_W
+	if a & SH_FLAGS.SHF_EXECINSTR:
+		b |= P_FLAGS.PF_X
+	return b
 
 def convertone(infilename, outfilename):
 	with open(infilename, "rb") as rplstream, open(outfilename, "wb") as outstream:
@@ -11,32 +21,51 @@ def convertone(infilename, outfilename):
 		rplstream.seek(0)
 		a = RPLFile(rplstream)
 		rplstream = io.BytesIO(rpl)
-		headerbytes = bytearray(rplstream.read(a.header["e_ehsize"]))
-		headerbytes[0x7] = 0 # sysV
-		headerbytes[0x8] = 0 # abi v0
-		headerbytes[0x10] = 0
-		headerbytes[0x11] = 3 # dyn
 
-		outstream.write(headerbytes)
+		newehdr = copy.copy(a.header)
+		newehdr["e_ident"]["EI_OSABI"] = 0
+		newehdr["e_ident"]["EI_ABIVERSION"] = 0
+		newehdr["e_type"] = 3 # dyn
+		newehdr["e_phnum"] = newehdr["e_shnum"]
+		newehdr["e_phoff"] = newehdr["e_shoff"]
+		newehdr["e_phentsize"] = a.structs.Elf_Phdr.sizeof()
+		newehdr["e_shoff"] += newehdr["e_phentsize"] * newehdr["e_phnum"]
+
+		outstream.write(a.structs.Elf_Ehdr.build(newehdr))
 		b = 0
 		crushed_data = io.BytesIO()
+		crushed_section = io.BytesIO()
 		crushed_indexes = []
-		post_headers = a.header["e_shoff"] + (a.header["e_shentsize"] * a.header["e_shnum"])
-		if (a.structs.Elf_Shdr.sizeof() != a.header["e_shentsize"]):
-			print("FAIL", a.structs.Elf_Shdr.sizeof(), a.header["e_shentsize"])
+		post_headers = newehdr["e_shoff"] + (newehdr["e_shentsize"] * newehdr["e_shnum"])
+		if (a.structs.Elf_Shdr.sizeof() != newehdr["e_shentsize"]):
+			print("FAIL", a.structs.Elf_Shdr.sizeof(), newehdr["e_shentsize"])
 		for i in a.iter_sections():
 			data = i.data()
 			crushed_indexes.append(crushed_data.tell())
 			crushed_data.write(data)
-			outstream.seek(a.header["e_shoff"] + (a.header["e_shentsize"] * b))
+			crushed_section.seek((newehdr["e_shentsize"] * b))
 			newheader = copy.copy(i.header)
 			newheader["sh_size"] = len(data)
 			newheader["sh_offset"] = crushed_indexes[b] + post_headers
 			newheader["sh_flags"] &= ~0x08000000
 			if newheader["sh_type"] == "SHT_SYMTAB":
 				newheader["sh_info"] = 0# newheader["sh_info"] // newheader["sh_entsize"]
-			outstream.write(a.structs.Elf_Shdr.build(newheader))
+			crushed_section.write(a.structs.Elf_Shdr.build(newheader))
+
+			phdr = Container()
+			phdr["p_type"] = "PT_LOAD" if newheader["sh_flags"]&SH_FLAGS.SHF_ALLOC else "PT_NULL"
+			phdr["p_offset"] = newheader["sh_offset"]
+			phdr["p_vaddr"] = phdr["p_paddr"] = newheader["sh_addr"]
+			phdr["p_filesz"] = newheader["sh_size"] if newheader["sh_type"] != "SHT_NOBITS" else 0
+			phdr["p_memsz"] = newheader["sh_size"]
+			phdr["p_flags"] = shtopflags(newheader["sh_flags"])
+			phdr["p_align"] = newheader["sh_addralign"]
+			outstream.seek(newehdr["e_phoff"] + (newehdr["e_phentsize"] * b))
+			outstream.write(a.structs.Elf_Phdr.build(phdr))
+
 			b = b + 1
+		outstream.seek(newehdr["e_shoff"])
+		outstream.write(crushed_section.getvalue())
 		outstream.write(crushed_data.getvalue())
 
 def convertdir(indirname):

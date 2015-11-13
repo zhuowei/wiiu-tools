@@ -1,4 +1,5 @@
 # I swear to potato, if you make one BL joke...
+import sys
 
 sprs = {}
 
@@ -63,14 +64,18 @@ def filter_load(line, lastline):
 	print(line, "//", anno)
 	return True
 
-with open("kernel_disasm.txt", "r") as intext:
+with open(sys.argv[1], "r") as intext:
 	indata = intext.read().split("\n")
 
 funclist = {}
 
 for l in indata:
 	if "bl      " in l:
-		addr = int(l[31:l.find(" ", 31)], 16)
+		blindex = l.find("bl      ") + len("bl      ")
+		endindex = l.find(" ", blindex)
+		if endindex == -1:
+			endindex = len(l)
+		addr = int(l[blindex:endindex], 16)
 		ownaddr = int(l[0:l.find(":\t")], 16)
 
 		if not addr in funclist:

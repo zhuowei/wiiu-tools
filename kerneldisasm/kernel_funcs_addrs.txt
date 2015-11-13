@@ -259,7 +259,7 @@ sub_fff12c68: !!syscall_extended_62
 sub_fff12d8c: !!syscall_extended_4d
 sub_fff13124: !!KiGetProcessListRPL
 sub_fff13194: !!load_r12_from_r3
-sub_fff13348: !!add_proc_actiion_callback
+sub_fff13348: !!add_proc_action_callback
 sub_fff133ec: !!syscall_extended_5a_SendPolicy
 sub_fff13558: !!syscall_extended_6b
 sub_fff13588: !!syscall_extended_70_GetTitleVersion

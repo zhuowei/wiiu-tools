@@ -1,3 +1,4 @@
+import sys
 with open("kernel.out", "rb") as infile:
 	kerneldat = infile.read()
 
@@ -15,13 +16,13 @@ def readstr(d, off):
 		i += 1
 	return out
 
-with open("kernel_anno.txt", "r") as infile:
+with open(sys.argv[1], "r") as infile:
 	for l in infile:
 		l = l.rstrip("\n")
 		if "!!str:" in l:
 			print(l)
 			continue
-		if "0xff" in l:
+		if "0xff" in l and not "+0xff" in l:
 			addrs = l.find("0xff")
 			addr = int(l[addrs:addrs+10], 16) - kernelbase
 			mystr = readstr(kerneldat, addr)
